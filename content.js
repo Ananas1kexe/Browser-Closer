@@ -16,9 +16,8 @@ document.addEventListener('keydown', (event) => {
 
 
     if (inputBuffer.includes("microsoft") || inputBuffer.includes("windows")) {
-        console.log("%c[STOP]: !", "background: red; color: white; padding: 5px; font-size: 16px;");
         chrome.runtime.sendMessage({action: "close_all"});
-        alert("Вы напечатали запрещенное слово!");
+        alert("Вы решили поставить что то страное!");
         inputBuffer = ""; 
     }
 });
