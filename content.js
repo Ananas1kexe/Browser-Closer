@@ -1,6 +1,12 @@
-
 let inputBuffer = "";
-
+const words = [
+    "microsoft",
+    "windows",
+    "майкрософт",
+    "виндус",
+    "микрософт",
+    "виндувс"
+]
 document.addEventListener('keydown', (event) => {
     const key = event.key;
 
@@ -14,11 +20,11 @@ document.addEventListener('keydown', (event) => {
         inputBuffer = inputBuffer.substring(inputBuffer.length - 30);
     }
 
-
-    if (inputBuffer.includes("microsoft") || inputBuffer.includes("windows")) {
-        chrome.runtime.sendMessage({action: "close_all"});
-        alert("Вы решили поставить что то страное!");
-        inputBuffer = ""; 
+    for (word in words) {
+        if (inputBuffer.includes(word)) {
+            chrome.runtime.sendMessage({action: "close_all"});
+            alert("Вы решили поставить что то страное!");
+            inputBuffer = ""; 
+    }
     }
 });
-
