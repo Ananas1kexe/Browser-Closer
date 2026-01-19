@@ -1,4 +1,5 @@
 let inputBuffer = "";
+
 const words = [
     "microsoft",
     "windows",
@@ -6,25 +7,22 @@ const words = [
     "виндус",
     "микрософт",
     "виндувс"
-]
-document.addEventListener('keydown', (event) => {
-    const key = event.key;
+];
 
-    if (key === "Backspace") {
+document.addEventListener("keydown", (event) => {
+    if (event.key.length === 1) {
+        inputBuffer += event.key.toLowerCase();
+    } else if (event.key === "Backspace") {
         inputBuffer = inputBuffer.slice(0, -1);
-    } else if (key.length === 1) {
-        inputBuffer += key.toLowerCase();
     }
 
-    if (inputBuffer.length > 30) {
-        inputBuffer = inputBuffer.substring(inputBuffer.length - 30);
-    }
+    inputBuffer = inputBuffer.slice(-30);
 
-    for (word in words) {
+    for (const word of words) {
         if (inputBuffer.includes(word)) {
-            chrome.runtime.sendMessage({action: "close_all"});
-            alert("Вы решили поставить что то страное!");
-            inputBuffer = ""; 
-    }
+            browser.runtime.sendMessage({ action: "close_all" });
+            alert("Вы решили поставить что-то странное!");
+            inputBuffer = "";
+        }
     }
 });
